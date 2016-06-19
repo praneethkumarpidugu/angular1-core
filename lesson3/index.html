@@ -1,5 +1,5 @@
 <!DOCTYPE html >
-<html lang="en" ng-app>
+<html lang="en" ng-app="minmax">
 <head >
 	<title >Form Submission</title >
 	<link href="../libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" >
@@ -17,13 +17,14 @@
 	</div >
 </nav >
 
-<div class="container main-content" >
+<div class="container main-content" ng-controller="MinMaxCtrl">
 
 	<form >
 		<div class="form-group" >
 			<label for="name" >Name</label >
 			<input type="text"
 			       class="form-control"
+				   ng-model="formModel.name"
 			       id="name" >
 		</div >
 
@@ -31,6 +32,7 @@
 			<label for="email" >Email</label >
 			<input type="email"
 			       class="form-control"
+				   ng-model="formModel.email"
 			       id="email" >
 		</div >
 
@@ -38,6 +40,7 @@
 			<label for="username" >Username</label >
 			<input type="text"
 			       class="form-control"
+				   ng-model="formModel.username"
 			       id="username" >
 		</div >
 
@@ -45,6 +48,7 @@
 			<label for="age" >Age</label >
 			<input type="number"
 			       class="form-control"
+				   ng-model="formModel.age"
 			       id="age" >
 		</div >
 
@@ -52,7 +56,8 @@
 			<label for="sex" >Sex</label >
 			<select name="sex"
 			        id="sex"
-							class="form-control" >
+					class="form-control"
+					ng-model="formModel.sex" >
 				<option value="" >Please Choose</option >
 				<option value="male" >Male</option >
 				<option value="female" >Female</option >
@@ -63,15 +68,17 @@
 			<label for="password" >Password</label >
 			<input type="password"
 			       class="form-control"
+				   ng-model="formModel.password"
 			       id="password" >
 		</div >
 
 		<div class="form-group">
-			<button class="btn btn-primary" >Register
+			<button class="btn btn-primary" ng-click="onSubmit()">Register
 			</button>
 		</div>
 
 	</form >
+	<pre>{{ formModel | json }}</pre>
 
 
 </div >
