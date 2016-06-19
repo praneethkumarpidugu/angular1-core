@@ -19,16 +19,24 @@
 
 <div class="container main-content" ng-controller="MinMaxCtrl" >
 
-	<form name="theForm" ng-submit="onSubmit()" >
-		<div class="form-group" >
+	<form name="theForm" ng-submit="onSubmit(theForm.$valid)" novalidate="novalidate">
+		<div class="form-group" ng-class="{
+			'has-error':!theForm.name.$valid && (!theForm.$pristine || theForm.$submitted),
+			'has-success':theForm.name.$valid && (!theForm.$pristine || theForm.$submitted)}">
 			<label for="name" >Name</label >
 			<input type="text"
 			       class="form-control"
 			       ng-model="formModel.name"
+				   name="name"
 			       id="name" >
+			<p class="help-block" ng-show="theForm.email.$error.required && (!theForm.$pristine || theForm.$submitted)">This field is required</p>
 		</div >
-
-		<div class="form-group" >
+		<!--For ng-class we will use below pre field data
+		  with has-error if its not valid !theForm.email.$valid
+		  with has-success if its valid theForm.email.$valid -->
+		<div class="form-group" ng-class="{
+			'has-error':!theForm.email.$valid && (!theForm.$pristine || theForm.$submitted),
+			'has-success':theForm.email.$valid && (!theForm.$pristine || theForm.$submitted)}">
 			<label for="email" >Email</label >
 			<input type="email"
 			       class="form-control"
@@ -37,24 +45,49 @@
 			       name="email"
 			       required="required" >
 		</div >
+		<p class="help-block" ng-show="theForm.email.$error.required && (!theForm.$pristine || theForm.$submitted)">
+			This field is required.
+		</p>
+		<p class="help-block" ng-show="theForm.email.$error.email && (!theForm.$pristine || theForm.$submitted)">
+			Please enter an email with at least an @ symbol.
+		</p>
+		<!-- To look at the more detailed error will use $error with filtering of
+		 json -->
+		<!--<pre>Validation {{ theForm.email.$error | json }}</pre>-->
+		<!--&lt;!&ndash; To debug the field valid or not with json&ndash;&gt;-->
+		<!--<pre>Fieldvalid? {{ theForm.email.$valid }}</pre>-->
+		<!--<pre>Fieldpristine? {{ theForm.$pristine }}</pre>-->
 
-		<div class="form-group" >
+		<!--&lt;!&ndash; To show the error condition when we try to submit the form&ndash;&gt;-->
+		<!--<pre>Form submitted? {{ theForm.$submitted }}</pre>-->
+
+		<div class="form-group" ng-class="{
+		'has-error':!theForm.username.$valid && (!theForm.$pristine || theForm.$submitted),
+		'has-success':theForm.username.$valid && (!theForm.$pristine || theForm.$submitted)}">
 			<label for="username" >Username</label >
 			<input type="text"
 			       class="form-control"
 			       ng-model="formModel.username"
+				   name="username"
 			       id="username" >
+			<p class="help-block" ng-show="!theForm.username.$error.required && (!theForm.$pristine || theForm.$submitted)">This field is required.</p>
 		</div >
 
-		<div class="form-group" >
+		<div class="form-group" ng-class="{
+		'has-error':!theForm.age.$valid && (!theForm.$pristine || theForm.$submitted),
+		'has-success':theForm.age.$valid && (!theForm.$pristine || theForm.$submitted)}">
 			<label for="age" >Age</label >
 			<input type="number"
 			       class="form-control"
 			       ng-model="formModel.age"
+				   name="age"
 			       id="age" >
+			<p class="help-block" ng-show="!theForm.age.$error.required && (!theForm.$pristine || theForm.$submitted )">This field is required</p>
 		</div >
 
-		<div class="form-group" >
+		<div class="form-group" ng-class="{
+		'has-error':!theForm.sex.$valid && (!theForm.$pristine || theForm.$submitted),
+		'has-success':theForm.sex.$valid && (!theForm.$pristine || theForm.$submitted)}">
 			<label for="sex" >Sex</label >
 			<select name="sex"
 			        id="sex"
@@ -64,14 +97,19 @@
 				<option value="male" >Male</option >
 				<option value="female" >Female</option >
 			</select >
+			<p class="help-block" ng-show="!theForm.sex.$error.required && (!theForm.$pristine || theForm.$submitted)">Selection is required</p>
 		</div >
 
-		<div class="form-group" >
+		<div class="form-group" ng-class="{
+		'has-error':!theForm.password.$valid && (!theForm.$pristine || theForm.$submitted),
+		'has-success':theForm.password.$valid && (!theForm.$pristine || theForm.$submitted)}">
 			<label for="password" >Password</label >
 			<input type="password"
 			       class="form-control"
 			       ng-model="formModel.password"
+				   name="password"
 			       id="password" >
+			<p class="help-block" ng-show="!theForm.password.$error.required && (!theForm.$pristine || theForm.$submitted)">This field is required.</p>
 		</div >
 
 		<div class="form-group" >
@@ -82,7 +120,7 @@
 
 	</form >
 
-	<pre>{{ formModel | json }}</pre>
+	<pre>{{ theForm | json }}</pre>
 
 </div >
 
