@@ -3,6 +3,7 @@
 <head >
 	<title >Form Validation - Part 3</title >
 	<link href="../libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" >
+	<link href="../libs/ladda/dist/ladda-themeless.min.css" rel="stylesheet" >
 	<link href="main.css" rel="stylesheet" >
 </head >
 
@@ -85,10 +86,21 @@
 			       required="required"
 						 ng-minlength="10">
 		</div >
-
+		<!--What data-style and ladda does it will make the spin even if
+		we dont click on the register button.
+		To fix this we will modify it in app.js controller(goto app.js).
+		Now we will submitting instead of true for ladda.
+		Also after we click on register we will show a message as
+		registering with a span.
+		If submitting we will show registering
+		And if !submitting we will show Register-->
 		<div class="form-group">
 			<button class="btn btn-primary"
-							type="submit">Register
+					ladda="submitting"
+					data-style="expand-right"
+					type="submit">
+				<span ng-show="submitting">Registering</span>
+				<span ng-show="!submitting">Register</span>
 			</button>
 		</div>
 
@@ -101,6 +113,9 @@
 
 <script src="../libs/angular/angular.min.js" ></script >
 <script src="../libs/angular-auto-validate/dist/jcs-auto-validate.min.js" ></script >
+<script src="../libs/ladda/dist/spin.min.js" ></script >
+<script src="../libs/ladda/dist/ladda.min.js" ></script >
+<script src="../libs/angular-ladda/dist/angular-ladda.min.js" ></script >
 
 <script src="main.js" ></script >
 
