@@ -1,13 +1,22 @@
 var app = angular.module('codecraft', []);
 
 app.controller('PersonsController', function ($scope) {
-
+	//declaring search to be a string
+	$scope.search = "";
 	$scope.selectedIndex = null;
 	$scope.selectedPerson = null;
 
 	$scope.selectPerson = function (person, index) {
 		$scope.selectedIndex = index;
 		$scope.selectedPerson = person;
+	};
+
+	$scope.sensitiveSearch = function(person) {
+		//if someone has typed anything in search--a value
+		if ($scope.search) {
+			return person.name.indexOf($scope.search) == 0 || person.email.indexOf($scope.search) == 0;
+		}
+		return true;
 	};
 
 	$scope.persons = [
