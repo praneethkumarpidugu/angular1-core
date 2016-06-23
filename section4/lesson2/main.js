@@ -15,4 +15,3 @@ app.controller('ChildController', function ($scope, $rootScope) {
 	};
 });
 
-
