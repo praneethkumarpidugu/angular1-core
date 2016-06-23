@@ -63,11 +63,11 @@
 							<th >Birthday</th >
 						</tr >
 
-						<tr ng-repeat="person in filteredPersons = (persons | filter:sensitiveSearch | orderBy:order)"
+						<tr ng-repeat="person in filteredPersons = (contacts.persons | filter:sensitiveSearch | orderBy:order)"
 							ng-style="{
-							 'background-color': $index == selectedIndex ? 'lightgray' : ''
+							 'background-color': person.email == contacts.selectedPerson.email ? 'lightgray' : ''
 						}"
-							ng-click="selectPerson(person, $index)" >
+							ng-click="contacts.selectedPerson = person" >
 							<td >{{ $index }}</td >
 							<td >{{ person.name }}</td >
 							<td >{{ person.email }}</td >
@@ -95,19 +95,19 @@
 
 					<dl >
 						<dt >Name</dt >
-						<dd >{{selectedPerson.name}}</dd >
+						<dd >{{contacts.selectedPerson.name}}</dd >
 						<dt >Email</dt >
-						<dd >{{selectedPerson.email}}</dd >
+						<dd >{{contacts.selectedPerson.email}}</dd >
 						<dt >Birthday</dt >
-						<dd >{{selectedPerson.birthdate | date:"longDate"}}</dd >
+						<dd >{{contacts.selectedPerson.birthdate | date:"longDate"}}</dd >
 						<dt >Phonenumber</dt >
-						<dd >{{selectedPerson.phonenumber}}</dd >
+						<dd >{{contacts.selectedPerson.phonenumber}}</dd >
 						<dt >Address</dt >
-						<dd >{{selectedPerson.address}}</dd >
+						<dd >{{contacts.selectedPerson.address}}</dd >
 						<dt >City</dt >
-						<dd >{{selectedPerson.city}}</dd >
+						<dd >{{contacts.selectedPerson.city}}</dd >
 						<dt >Country</dt >
-						<dd >{{selectedPerson.country}}</dd >
+						<dd >{{contacts.selectedPerson.country}}</dd >
 					</dl >
 
 				</div >

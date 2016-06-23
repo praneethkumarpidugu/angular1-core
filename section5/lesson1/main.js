@@ -1,20 +1,19 @@
 var app = angular.module('codecraft', []);
 
-app.controller('PersonDetailController', function ($scope) {
+//We inject the ContactService here
+app.controller('PersonDetailController', function ($scope, ContactService) {
 
+	$scope.contacts = ContactService;
 });
-app.controller('PersonListController', function ($scope, $rootScope) {
+
+//We inject the ContactService here
+app.controller('PersonListController', function ($scope, ContactService) {
 
 	$scope.search = "";
 	$scope.order = "email";
-	$scope.selectedIndex = null;
-	$rootScope.selectedPerson = null;
+	$scope.contacts = ContactService;
 
-	$scope.selectPerson = function (person, index) {
-		$scope.selectedIndex = index;
-		$rootScope.selectedPerson = person;
-	};
-
+	
 	$scope.sensitiveSearch = function(person) {
 		if ($scope.search) {
 			return person.name.indexOf($scope.search) == 0 ||
@@ -23,7 +22,20 @@ app.controller('PersonListController', function ($scope, $rootScope) {
 		return true;
 	};
 
-	$scope.persons = [
+
+});
+
+//Services moved from top.
+app.service('ContactService', function () {
+	//returns an object
+	//Also we can functions to the services.
+	return {
+		'addPerson': function (person) {
+			//We will add a person to the persons array
+			this.persons.push(person);
+		},
+		'selectedPerson' : null,
+		'persons': [
 		{
 			"name": "Gregory Huffman",
 			"email": "Praesent@pedenec.net",
@@ -925,4 +937,5 @@ app.controller('PersonListController', function ($scope, $rootScope) {
 			"country": "Taiwan"
 		}
 	]
+};
 });
