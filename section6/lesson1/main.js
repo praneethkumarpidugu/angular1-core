@@ -1,6 +1,7 @@
 var app = angular.module('codecraft', [
 	'ngResource',
-	'infinite-scroll'
+	'infinite-scroll',
+	'angularSpinner'
 ]);
 
 //we will add the factory $httpProvider
