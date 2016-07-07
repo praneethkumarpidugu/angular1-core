@@ -1,14 +1,19 @@
 var app = angular.module('codecraft', [
 	'ngResource',
 	'infinite-scroll',
-	'angularSpinner'
+	'angularSpinner',
+	'jcs-autoValidate',
+	'angular-ladda'
 ]);
 
 //we will add the factory $httpProvider
-app.config(function ($httpProvider, $resourceProvider) {
+app.config(function ($httpProvider, $resourceProvider, laddaProvider) {
 	$httpProvider.defaults.headers.common['Authorization'] = 'Token 7f482b5192e232141b0a10f0d36ee4443f14dc20';
 	//In the API we have, we normally have trailing slashes and to avoid we use below setting.
 	$resourceProvider.defaults.stripTrailingSlashes = false;
+	laddaProvider.setOption({
+		style: 'expand-right'
+	});
 });
 app.factory('Contact', function ($resource) {
 	return $resource("http://codecraftpro.com/api/samples/v1/contact/:id/");
