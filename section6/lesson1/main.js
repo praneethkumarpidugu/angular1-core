@@ -29,6 +29,9 @@ app.controller('PersonDetailController', function ($scope, ContactService) {
 	$scope.save = function () {
 		$scope.contacts.updateContact($scope.contacts.selectedPerson)
 		
+	};
+	$scope.remove = function () {
+		$scope.contacts.removeContact($scope.contacts.selectedPerson)
 	}
 });
 
@@ -66,6 +69,7 @@ app.service('ContactService', function (Contact) {
 		'hasMore': true,
 		'isLoading': false,
 		'isSaving': false,
+		'isDeleting': false,
 		'selectedPerson': null,
 		'persons': [],
 		'search': null,
@@ -116,6 +120,15 @@ app.service('ContactService', function (Contact) {
 			self.isSaving = true;
 			person.$update().then(function () {
 				self.isSaving = false;
+			});
+		},
+		'removeContact': function (person) {
+			self.isDeleting = true;
+			person.$remove().then(function () {
+				self.isDeleting = false;
+				var index = self.persons.indexOf(person);
+				self.persons.splice(index, 1);
+				self.selectedPerson = null;
 			});
 		}
 
