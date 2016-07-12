@@ -50,7 +50,7 @@
 								<option value="-email" >Email (DEC)</option >
 							</select >
 						</div >
-					<button class="btn btn-primary pull-right" ng-click="showCreateModal()">Create</button>
+					<button class="btn btn-primary pull-right" ng-click="showCreateModal()" >Create</button>
 					</form >
 
 					<table class="table table-bordered" infinite-scroll="loadMore()" infinite-scroll-distance="1">
@@ -113,9 +113,9 @@
 				<div class="panel-body" >
 					<form class="form-horizontal"
 							ng-submit="save()"
-							novalidate>
+							novalidate >
 
-					<ng-include src="'templates/form.html'"></ng-include>
+						<ng-include src="'templates/form.html'" ></ng-include>
 					</form>
 
 
