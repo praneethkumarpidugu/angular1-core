@@ -59,6 +59,9 @@ app.controller('PersonListController', function ($scope, $modal, ContactService)
 	$scope.createContact = function () {
 		console.log("createcontact");
 		$scope.contacts.createContact($scope.contacts.selectedPerson)
+			.then(function () {
+				$scope.createModal.hide();
+		})
 	};
 
 	$scope.$watch('search', function(newVal, oldVal) {
@@ -74,7 +77,7 @@ app.controller('PersonListController', function ($scope, $modal, ContactService)
 
 });
 
-app.service('ContactService', function (Contact) {
+app.service('ContactService', function (Contact, $q) {
 
 	var self =  {
 		'addPerson': function (person) {
@@ -147,10 +150,19 @@ app.service('ContactService', function (Contact) {
 			});
 		},
 		'createContact': function (person) {
+			var d = $q.defer();
 			self.isSaving = true;
 			Contact.save(person).$promise.then(function () {
 				self.isSaving = false;
+				self.selectedPerson = null;
+				self.hasMore = true;
+				self.page = 1;
+				self.persons = [];
+				self.loadContacts();
+				d.resolve()
 			});
+			//Here
+			return d.promise;
 
 		}
 
